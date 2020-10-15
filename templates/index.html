@@ -1,0 +1,28 @@
+{% from "_macro.html" import renderfield %}
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container">
+  <form>
+    {{ renderfield(form.formlevone, class = 'form-control') }}
+    {{ renderfield(form.formleveltwo, class = 'form-control') }}
+    {{ renderfield(form.envia, class = 'form-control') }}
+
+  </form>
+  <script>
+    $('#formlevone').change(function() {
+      levelone = $('#formlevone').val();
+      fetch('/leveltwo/' + levelone).then(function(response) {
+        response.json().then(function(data) {
+          let optionHTML = '<option value=0>--</option>';
+          for (let categoria of data.categorias) {
+            optionHTML += '<option value="' + categoria.IdComCatLevel2 + '">' +
+              categoria.NameComCatLev2 + '</option>';
+          }
+          $('#formleveltwo').html(optionHTML)
+        });
+      })
+    });
+  </script>
+
+</div>
+{% endblock %}

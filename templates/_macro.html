@@ -1,0 +1,4 @@
+{% macro renderfield(camp) %}
+        <td>{{ camp.label }}</td>
+        <dd> {{ camp(**kwargs)|safe}} </dd>
+{% endmacro %}
