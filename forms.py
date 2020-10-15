@@ -19,10 +19,12 @@ def choice_query():
 
 
 class ComentForm(FlaskForm):
-    formlevone = QuerySelectField(query_factory=choice_query_fam,
+    formlevelone = QuerySelectField(query_factory=choice_query_fam,
                                   allow_blank=True,
-                                  get_label='NameComCatLev1', label='Famila de productos')
-
+                                  get_label='NameComCatLev1',
+                                  label='Famila de productos',
+                                  blank_text="--")
     formleveltwo = SelectField('Categoria del subyacente', choices=[])
+    formunderlyings = SelectField('Subyacente', choices=[])
 
     envia = SubmitField('Hecho')
