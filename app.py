@@ -14,32 +14,7 @@ csrf = CSRFProtect()
 @app.route('/', methods=['GET', 'POST'])
 def index():
     commentaris = forms.ComentForm(request.form)
-
     return render_template('index.html', form=commentaris)
-
-
-@app.route('/querycombos/<levelone>', methods=['GET', 'POST'])
-def get_leveltwo(levelone):
-    secondlevel = leveltwo.query.filter_by(IdComCatLevel1=levelone).all()
-    secondlevelarray = []
-    for categoria in secondlevel:
-        secondlevelobject = {'IdComCatLevel2': categoria.IdComCatLevel2,
-                             'NameComCatLev2': categoria.NameComCatLev2}
-        secondlevelarray.append(secondlevelobject)
-    print(secondlevelarray)
-    return jsonify({'categorias': secondlevelarray})
-
-
-@app.route('/culdesac/<leveltwo>', methods=['GET', 'POST'])
-def get_levelthree(leveltwo):
-    thirdlevel = underlyings.query.filter_by(IdComCatLevel2=leveltwo).all()
-    thirdlevelarray = []
-    for under in thirdlevel:
-        thirdlevelobject = {'IdUnder': under.IdUnder,
-                            'NameUnder': under.NameUnder}
-        thirdlevelarray.append(thirdlevelobject)
-    print(thirdlevelarray)
-    return jsonify({'unders': thirdlevelarray})
 
 
 @app.route('/<tabledata>/<idfield>/<namefield>/<filterfield>/<filtervalue>', methods=['GET', 'POST'])
@@ -48,12 +23,39 @@ def get_quer(tabledata, idfield, namefield, filterfield, filtervalue):
                 ' from ' + tabledata + ' where ' + filterfield + '=' + str(filtervalue)
     donequery = db.session.execute(querytodo)
     donequeryarray = []
+
     for record in donequery:
         donequeryobject = {'IdRecord': record[0],
                            'NameRecord': record[1]}
         donequeryarray.append(donequeryobject)
-    print(donequeryarray)
     return jsonify({'jsonpack': donequeryarray})
+
+
+@app.route('/cercaposicio/<combo>', methods=['GET', 'POST'])
+def get_posicio(combo):
+    cuadrosCombo = [('levelone', 1), ('leveltwo', 2), ('underlyings', 3)]
+    combosclear = []
+    for nombrecombo in cuadrosCombo:
+        if nombrecombo[1] > int(combo):
+            comboobject = {'comborefresh': nombrecombo[0]}
+            combosclear.append(comboobject)
+    return jsonify({'refreshcombos': combosclear})
+
+
+@app.route('/trincainfo/<idsubjacent>', methods=['GET', 'POST'])
+def get_info_sub(idsubjacent):
+    queryinfo = 'select DelivCond, GeoPlacement, IdCurcy, SelObs ' + \
+                ' from underlyings where IdUnder =' + str(idsubjacent)
+    donequeryinfo = db.session.execute(queryinfo)
+    donequeryinfoyarray = []
+
+    for record in donequeryinfo:
+        donequeryobject = {'DelivCond': record[0],
+                           'GeoPlacement': record[1],
+                           'IdCurcy': record[2],
+                           'SelObs': record[3]}
+        donequeryinfoyarray.append(donequeryobject)
+    return jsonify({'infosub': donequeryinfoyarray})
 
 
 if __name__ == "__main__":
@@ -61,4 +63,4 @@ if __name__ == "__main__":
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run(port=4000)
+    app.run(port=4071)

@@ -1,16 +1,20 @@
 {% from "_macro.html" import renderfield %}
 {% extends 'base/base.html' %}
 {% block content %}
+
 <div class="container">
   <form>
     {{ renderfield(form.formlevelone, class = 'form-control') }}
     {{ renderfield(form.formleveltwo, class = 'form-control') }}
     {{ renderfield(form.formunderlyings, class = 'form-control') }}
+    <p> {{ delivery }}</p>
+    <p> {{ geo }}</p>
+    <p> {{ divisa }}</p>
+    <p> {{ nivell }}</p>
     {{ renderfield(form.envia, class = 'form-control') }}
-
   </form>
-  <script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.js')}}">
-  </script>
-
+  <script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.js')}}"></script>
+  <script type="text/javascript" src="{{ url_for ('static', filename='js/jquerymcpfuncs.js')}}"></script>
 </div>
+
 {% endblock %}
