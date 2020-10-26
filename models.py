@@ -23,3 +23,12 @@ class underlyings(db.Model):
     GeoPlacement = db.Column(db.Integer, primary_key=False)
     IdCurcy = db.Column(db.Integer, primary_key=False)
     SelObs = db.Column(db.Integer, primary_key=False)
+
+
+class delicond(db.Model):
+    IdDeliveryCond = db.Column(db.Integer, primary_key=True)
+    NameDeliveryCond = db.Column(db.String(80), unique=True)
+
+class delicond(db.Model):
+    IdDeliveryCond = db.Column(db.Integer, primary_key=True)
+    NameDeliveryCond = db.Column(db.String(80), unique=True)

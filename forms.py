@@ -2,7 +2,7 @@ from wtforms import Form
 from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, PasswordField, SubmitField
 from wtforms_sqlalchemy.fields import QuerySelectField
-from models import levelone, leveltwo
+from models import levelone, leveltwo, delicond
 
 
 class Login(FlaskForm):
@@ -18,13 +18,31 @@ def choice_query():
     return leveltwo.query
 
 
+def choice_query_delicond():
+    return delicond.query
+
+
 class ComentForm(FlaskForm):
     formlevelone = QuerySelectField(query_factory=choice_query_fam,
                                   allow_blank=True,
                                   get_label='NameComCatLev1',
                                   label='Famila de productos',
                                   blank_text="--")
+
     formleveltwo = SelectField('Categoria del subyacente', choices=[])
+
     formunderlyings = SelectField('Subyacente', choices=[])
+
+    formdelicond = QuerySelectField(query_factory=choice_query_delicond,
+                                    allow_blank=True,
+                                    get_label='NameComCatLev1',
+                                    label='Famila de productos',
+                                    blank_text="--")
+
+    formgeodel = QuerySelectField(query_factory=choice_query_delicond,
+                                   allow_blank=True,
+                                   get_label='NameComCatLev1',
+                                   label='Famila de productos',
+                                   blank_text="--")
 
     envia = SubmitField('Hecho')
