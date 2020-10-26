@@ -7,15 +7,13 @@
     {{ renderfield(form.formlevelone, class = 'form-control') }}
     {{ renderfield(form.formleveltwo, class = 'form-control') }}
     {{ renderfield(form.formunderlyings, class = 'form-control') }}
-
-    <p> {{ delivery }}</p>
-    <p> {{ geo }}</p>
-    <p> {{ divisa }}</p>
-    <p> {{ nivell }}</p>
+    {{ renderfield(form.formdelicond, class = 'form-control') }}
+    {{ renderfield(form.formgeodel, class = 'form-control') }}
     {{ renderfield(form.envia, class = 'form-control') }}
   </form>
   <script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.js')}}"></script>
   <script type="text/javascript" src="{{ url_for ('static', filename='js/jquerymcpfuncs.js')}}"></script>
+
 </div>
 
 {% endblock %}
