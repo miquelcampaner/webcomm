@@ -3,17 +3,29 @@
 {% block content %}
 
 <div class="container">
-  <form>
-    {{ renderfield(form.formlevelone, class = 'form-control') }}
-    {{ renderfield(form.formleveltwo, class = 'form-control') }}
-    {{ renderfield(form.formunderlyings, class = 'form-control') }}
-    {{ renderfield(form.formdelicond, class = 'form-control') }}
-    {{ renderfield(form.formgeodel, class = 'form-control') }}
-    {{ renderfield(form.envia, class = 'form-control') }}
-  </form>
-  <script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.js')}}"></script>
-  <script type="text/javascript" src="{{ url_for ('static', filename='js/jquerymcpfuncs.js')}}"></script>
+  <div class="row ">
+    <div class="col col-md-3">
+      <form>
+        {{ renderfield(form.formlevelone, class = 'form-control') }}
+        {{ renderfield(form.formleveltwo, class = 'form-control') }}
+        {{ renderfield(form.formunderlyings, class = 'form-control') }}
+        {{ renderfield(form.formdelicond, class = 'form-control') }}
+        {{ renderfield(form.formgeodel, class = 'form-control') }}
+        {{ renderfield(form.envia, class = 'form-control') }}
+      </form>
+    </div>
+    <div class="col col-md-3">
+      <form>
 
+      </form>
+    </div>
+    <div class="col col-md-6">
+      <form>
+
+      </form>
+    </div>
+  </div>
 </div>
-
+<script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.js')}}"></script>
+<script type="text/javascript" src="{{ url_for ('static', filename='js/jquerymcpfuncs.js')}}"></script>
 {% endblock %}

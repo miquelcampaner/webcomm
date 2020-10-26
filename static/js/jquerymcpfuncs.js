@@ -3,9 +3,9 @@ function actualitzaCombos(infoLider,
   idGregari,
   nameGregari,
   campFiltre) {
-  valorlider = $('#form' + infoLider).val();
+  valorlider = $('#form'+infoLider).val();
   let optionHTML = '<option value=0>--</option>';
-  fetch('/cercaposicio/' + valorlider).then(function(response) {
+  fetch('/cercaposicio/' + infoLider).then(function(response) {
     response.json().then(function(data) {
       for (let comboclear of data.refreshcombos) {
         $('#form' + comboclear.comborefresh).html(optionHTML);
@@ -25,16 +25,22 @@ function actualitzaCombos(infoLider,
   });
 };
 
-
 function trincaInfosub() {
   idsubjacent = $('#formunderlyings').val();
   fetch('/trincainfo/' + idsubjacent).then(function(response) {
     response.json().then(function(data) {
       for (let itemsubjacent of data.infosub) {
-        var delivery = itemsubjacent.DelivCond
-        var geo = itemsubjacent.GeoPlacement
-        var divisa = itemsubjacent.IdCurcy
-        var nivell = itemsubjacent.SelObs
+        delivery = itemsubjacent.DelivCond
+        geo = itemsubjacent.GeoPlacement
+        if(delivery == '0'){
+          $('#formdelicond').prop('disabled',true);
+          $('#formgeodel').prop('disabled',true);
+        }else{
+          $('#formdelicond').prop('disabled',false);
+          $('#formgeodel').prop('disabled',false);
+        }
+        divisa = itemsubjacent.IdCurcy
+        nivell = itemsubjacent.SelObs
 
       }
     });

@@ -31,10 +31,13 @@ def get_quer(tabledata, idfield, namefield, filterfield, filtervalue):
     return jsonify({'jsonpack': donequeryarray})
 
 
-@app.route('/cercaposicio/<combo>', methods=['GET', 'POST'])
-def get_posicio(combo):
+@app.route('/cercaposicio/<infolider>', methods=['GET', 'POST'])
+def get_posicio(infolider):
     cuadrosCombo = [('levelone', 1), ('leveltwo', 2), ('underlyings', 3)]
     combosclear = []
+    for namecombo in cuadrosCombo:
+        if namecombo[0] == infolider:
+            combo = namecombo[1]
     for nombrecombo in cuadrosCombo:
         if nombrecombo[1] > int(combo):
             comboobject = {'comborefresh': nombrecombo[0]}
@@ -63,4 +66,4 @@ if __name__ == "__main__":
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run(port=4001)
+    app.run(port=4004)

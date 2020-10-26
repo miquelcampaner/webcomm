@@ -1,3 +1,8 @@
+var delivery =''
+var geo = ''
+var divisa = ''
+var nivell = ''
+
 $('#formlevelone').change(function() {
     actualitzaCombos ('levelone',
                       'leveltwo',
@@ -18,5 +23,5 @@ $('#formleveltwo').change(function() {
 
 $('#formunderlyings').change(function() {
     trincaInfosub();
-});
 
+});
