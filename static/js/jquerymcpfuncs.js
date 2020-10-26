@@ -34,10 +34,8 @@ function trincaInfosub() {
         var delivery = itemsubjacent.DelivCond
         var geo = itemsubjacent.GeoPlacement
         var divisa = itemsubjacent.IdCurcy
-        var nivell = itemsubjacent.SelObs '<p>' + delivery + '</p>'
-        '<p>' + geo + '</p>'
-        '<p>' + divisa + '</p>'
-        '<p>' + nivell + '</p>'
+        var nivell = itemsubjacent.SelObs
+
       }
     });
   });
