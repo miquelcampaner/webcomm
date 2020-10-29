@@ -29,6 +29,8 @@ $('#formgeodel').change(function() {
     delicond = $('#formdelicond').val()
     if(delicond == '--'){
     }else if(delicond == ''){
+    }else if(delicond == null){
+    }else if(geo == null){
     }else{
     trincaPlatts();
     }

@@ -32,18 +32,19 @@ function trincaInfosub() {
   fetch('/trincainfo/' + idsubjacent).then(function(response) {
     response.json().then(function(data) {
       for (let itemsubjacent of data.infosub) {
-        delivery = itemsubjacent.DelivCond
-        geo = itemsubjacent.GeoPlacement
+        delivery = itemsubjacent.DelivCond;
+        geo = itemsubjacent.GeoPlacement;
         if(delivery == '0'){
           $('#formdelicond').prop('disabled',true);
           $('#formgeodel').prop('disabled',true);
+          trincaPlatts();
         }else{
           $('#formdelicond').prop('disabled',false);
           $('#formgeodel').prop('disabled',false);
-        }
-        divisa = itemsubjacent.IdCurcy
-        nivell = itemsubjacent.SelObs
-      }
+        };
+        divisa = itemsubjacent.IdCurcy;
+        nivell = itemsubjacent.SelObs;
+      };
     });
   });
 };
@@ -52,6 +53,10 @@ function trincaPlatts() {
   idsubjacent = $('#formunderlyings').val();
   iddelicond = $('#formdelicond').val();
   idgeoplac = $('#formgeodel').val();
+  if (delivery == '0'){
+    iddelicond = '0'
+    idgeoplac='0'
+  };
   fetch('/plattscode/' + idsubjacent + '/' +
                          iddelicond + '/'+
                          idgeoplac + '/' + [divisa]).then(function(response) {
