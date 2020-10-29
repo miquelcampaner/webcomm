@@ -2,6 +2,8 @@ var delivery =''
 var geo = ''
 var divisa = ''
 var nivell = ''
+var plattscode = ''
+var murexcode = ''
 
 $('#formlevelone').change(function() {
     actualitzaCombos ('levelone',
@@ -23,5 +25,9 @@ $('#formleveltwo').change(function() {
 
 $('#formunderlyings').change(function() {
     trincaInfosub();
+    trincaPlatts() ;
+});
 
+$('#formdivisas').change(function() {
+    trincaMurex() ;
 });

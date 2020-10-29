@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, jsonify
 from flask import request
 from flask_wtf.csrf import CSRFProtect
 from config import DevelConfig
-from models import db, leveltwo, underlyings
+from models import db
 import forms
-import models
+
 
 app = Flask(__name__)
 app.config.from_object(DevelConfig)
@@ -17,7 +17,8 @@ def index():
     return render_template('index.html', form=commentaris)
 
 
-@app.route('/<tabledata>/<idfield>/<namefield>/<filterfield>/<filtervalue>', methods=['GET', 'POST'])
+@app.route('/<tabledata>/<idfield>/<namefield>/<filterfield>/<filtervalue>',
+           methods=['GET', 'POST'])
 def get_quer(tabledata, idfield, namefield, filterfield, filtervalue):
     querytodo = 'select ' + idfield + ', ' + namefield + \
                 ' from ' + tabledata + ' where ' + filterfield + '=' + str(filtervalue)
@@ -33,7 +34,10 @@ def get_quer(tabledata, idfield, namefield, filterfield, filtervalue):
 
 @app.route('/cercaposicio/<infolider>', methods=['GET', 'POST'])
 def get_posicio(infolider):
-    cuadrosCombo = [('levelone', 1), ('leveltwo', 2), ('underlyings', 3)]
+    cuadrosCombo = [('levelone', 1),
+                    ('leveltwo', 2),
+                    ('underlyings', 3)]
+
     combosclear = []
     for namecombo in cuadrosCombo:
         if namecombo[0] == infolider:
@@ -61,9 +65,38 @@ def get_info_sub(idsubjacent):
     return jsonify({'infosub': donequeryinfoyarray})
 
 
+@app.route('/plattscode/<idsubjacent>/<delicond>/<geoplac>', methods=['GET', 'POST'])
+def get_platts_code(idsubjacent, delicond, geoplac):
+    queryplatts = 'select IdMurex ' + \
+                ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
+                ' IdDeliveryCond =' + str(delicond) + ' and' + \
+                ' IdGeoPlacement = ' + str(geoplac)
+    donequeryplatts = db.session.execute(queryplatts)
+    donequeryplattsyarray = []
+    for record in donequeryplatts:
+        donequeryobject = {'cashref': record[0]}
+        donequeryplattsyarray.append(donequeryobject)
+    return jsonify({'infoplatts': donequeryplattsyarray})
+
+
+@app.route('/murexcode/<idsubjacent>/<delicond>/<geoplac>/<divisa>', methods=['GET', 'POST'])
+def get_murex_code(idsubjacent, delicond, geoplac, divisa):
+    querymurex = 'select cashref ' + \
+                ' from mxmurexcodes where IdUnder =' + str(idsubjacent) + ' and' + \
+                ' IdDeliveryCond =' + str(delicond) + ' and' + \
+                ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
+                ' IdCurcy = ' + str(divisa)
+    donequerymurex = db.session.execute(querymurex)
+    donequerymurexyarray = []
+    for record in donequerymurex:
+        donequeryobject = {'cashref': record[0]}
+        donequerymurexyarray.append(donequeryobject)
+    return jsonify({'infomurex': donequerymurexyarray})
+
+
 if __name__ == "__main__":
     csrf.init_app(app)
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run(port=4004)
+    app.run(port=4003)

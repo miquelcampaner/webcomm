@@ -10,6 +10,8 @@ function actualitzaCombos(infoLider,
       for (let comboclear of data.refreshcombos) {
         $('#form' + comboclear.comborefresh).html(optionHTML);
       }
+      $('#formdelicond').val('--');
+      $('#formgeodel').val('--');
     });
   });
   fetch('/' + infoGregari + '/' + idGregari + '/' + nameGregari + '/' +
@@ -41,7 +43,38 @@ function trincaInfosub() {
         }
         divisa = itemsubjacent.IdCurcy
         nivell = itemsubjacent.SelObs
+      }
+    });
+  });
+};
 
+function trincaPlatts() {
+  idsubjacent = $('#formunderlyings').val();
+  iddelicond = $('#formdelicond').val();
+  idgeoplac = $('#formgeodel').val();
+  fetch('/plattscode/' + idsubjacent + '/' +
+                         iddelicond + '/'+
+                         idgeoplac + '/').then(function(response) {
+    response.json().then(function(data) {
+      for (let itemplatts of data.infoplatts) {
+        plattscode = itemplatts.cashref
+      }
+    });
+  });
+};
+
+function trincaMurex() {
+  idsubjacent = $('#formunderlyings').val();
+  iddelicond = $('#formdelicond').val();
+  idgeoplac = $('#formgeodel').val();
+  idccy = $('#formdivisas').val();
+  fetch('/plattscode/' + idsubjacent + '/' +
+                         iddelicond + '/'+
+                         idgeoplac + '/'+
+                         idccy + '/').then(function(response) {
+    response.json().then(function(data) {
+      for (let itemmurex of data.infomurex) {
+        murexcode = itemmurex.cashref
       }
     });
   });

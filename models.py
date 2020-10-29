@@ -33,3 +33,21 @@ class delicond(db.Model):
 class geodel(db.Model):
     IdGeoPlacement = db.Column(db.Integer, primary_key=True)
     NameGeoPlacement = db.Column(db.String(80), unique=True)
+
+
+class mxplattscodes(db.Model):
+    IdCode = db.Column(db.Integer, primary_key=True)
+    NameGeoPlacement = db.Column(db.String(80), unique=True)
+    IdUnder = db.Column(db.Integer, primary_key=False)
+    IdDeliveryCond = db.Column(db.Integer, primary_key=False)
+    IdGeoPlacement = db.Column(db.Integer, primary_key=False)
+    IdCurcy = db.Column(db.Integer, primary_key=False)
+    NameUnder = db.Column(db.String(80), unique=True)
+    IdMurex = db.Column(db.String(80), unique=True)
+    MxDesc = db.Column(db.String(80), unique=True)
+    cashref = db.Column(db.Integer, primary_key=False)
+    blmbrg_ticker = db.Column(db.String(80), unique=True)
+
+class divisas(db.Model):
+    IdCurcy = db.Column(db.Integer, primary_key=True)
+    NameCurcy = db.Column(db.String(80), unique=True)
