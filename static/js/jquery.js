@@ -35,6 +35,5 @@ $('#formgeodel').change(function() {
 });
 
 $('#formdivisas').change(function() {
-    alert('vamos allà')
     trincaMurex();
 });

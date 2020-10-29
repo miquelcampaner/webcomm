@@ -91,7 +91,7 @@ def get_murex_code(idsubjacent, delicond, geoplac, divisa_op):
     donequerymurex = db.session.execute(querymurex)
     donequerymurexyarray = []
     for record in donequerymurex:
-        donequeryobject = {'cashref': record[0]}
+        donequeryobject = {'mxref': record[0]}
         donequerymurexyarray.append(donequeryobject)
     print(donequerymurexyarray)
     return jsonify({'infomurex': donequerymurexyarray})
@@ -102,4 +102,4 @@ if __name__ == "__main__":
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run(port=4444)
+    app.run(port=4455)

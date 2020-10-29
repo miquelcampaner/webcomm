@@ -59,25 +59,32 @@ function trincaPlatts() {
       for (let itemplatts of data.infoplatts) {
         plattscode = itemplatts.cashref
       }
-      $('#formplattscode').val(plattscode)
+      $('#formplattscode').val(plattscode);
+      $('#formplattscode').prop('disabled',true);
     });
   });
 };
 
 function trincaMurex() {
+  alert('entram')
   idsubjacent = $('#formunderlyings').val();
   iddelicond = $('#formdelicond').val();
   idgeoplac = $('#formgeodel').val();
   idccy = $('#formdivisas').val();
-  fetch('/plattscode/' + idsubjacent + '/' +
+  alert('/murexcode/' + idsubjacent + '/' +
                          iddelicond + '/'+
                          idgeoplac + '/'+
-                         idccy + '/').then(function(response) {
+                         idccy)
+  fetch('/murexcode/' + idsubjacent + '/' +
+                         iddelicond + '/'+
+                         idgeoplac + '/'+
+                         idccy).then(function(response) {
     response.json().then(function(data) {
       for (let itemmurex of data.infomurex) {
-        murexcode = itemmurex.cashref
+        murexcode = itemmurex.mxref
       }
-      $('#formmurexcode').val(murexcode)
+      $('#formmurexcode').val(murexcode);
+      $('#formmurexcode').prop('disabled',true);
     });
   });
 };
