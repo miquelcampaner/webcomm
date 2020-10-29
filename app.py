@@ -65,12 +65,13 @@ def get_info_sub(idsubjacent):
     return jsonify({'infosub': donequeryinfoyarray})
 
 
-@app.route('/plattscode/<idsubjacent>/<delicond>/<geoplac>', methods=['GET', 'POST'])
-def get_platts_code(idsubjacent, delicond, geoplac):
-    queryplatts = 'select IdMurex ' + \
+@app.route('/plattscode/<idsubjacent>/<delicond>/<geoplac>/<divisa>', methods=['GET', 'POST'])
+def get_platts_code(idsubjacent, delicond, geoplac,divisa):
+    queryplatts = 'select cashref ' + \
                 ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
                 ' IdDeliveryCond =' + str(delicond) + ' and' + \
-                ' IdGeoPlacement = ' + str(geoplac)
+                ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
+                ' IdCurcy = ' + str(divisa)
     donequeryplatts = db.session.execute(queryplatts)
     donequeryplattsyarray = []
     for record in donequeryplatts:
@@ -79,18 +80,20 @@ def get_platts_code(idsubjacent, delicond, geoplac):
     return jsonify({'infoplatts': donequeryplattsyarray})
 
 
-@app.route('/murexcode/<idsubjacent>/<delicond>/<geoplac>/<divisa>', methods=['GET', 'POST'])
-def get_murex_code(idsubjacent, delicond, geoplac, divisa):
-    querymurex = 'select cashref ' + \
-                ' from mxmurexcodes where IdUnder =' + str(idsubjacent) + ' and' + \
+@app.route('/murexcode/<idsubjacent>/<delicond>/<geoplac>/<divisa_op>', methods=['GET', 'POST'])
+def get_murex_code(idsubjacent, delicond, geoplac, divisa_op):
+    querymurex = 'select IdMurex ' + \
+                ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
                 ' IdDeliveryCond =' + str(delicond) + ' and' + \
                 ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
-                ' IdCurcy = ' + str(divisa)
+                ' IdCurcy = ' + str(divisa_op)
+
     donequerymurex = db.session.execute(querymurex)
     donequerymurexyarray = []
     for record in donequerymurex:
         donequeryobject = {'cashref': record[0]}
         donequerymurexyarray.append(donequeryobject)
+    print(donequerymurexyarray)
     return jsonify({'infomurex': donequerymurexyarray})
 
 
@@ -99,4 +102,4 @@ if __name__ == "__main__":
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run(port=4003)
+    app.run(port=4444)

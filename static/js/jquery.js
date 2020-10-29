@@ -13,7 +13,6 @@ $('#formlevelone').change(function() {
                       'IdComCatLevel1');
 });
 
-
 $('#formleveltwo').change(function() {
     actualitzaCombos ('leveltwo',
                       'underlyings',
@@ -22,12 +21,20 @@ $('#formleveltwo').change(function() {
                       'IdComCatLevel2');
 });
 
-
 $('#formunderlyings').change(function() {
     trincaInfosub();
-    trincaPlatts() ;
+});
+
+$('#formgeodel').change(function() {
+    delicond = $('#formdelicond').val()
+    if(delicond == '--'){
+    }else if(delicond == ''){
+    }else{
+    trincaPlatts();
+    }
 });
 
 $('#formdivisas').change(function() {
-    trincaMurex() ;
+    alert('vamos allà')
+    trincaMurex();
 });

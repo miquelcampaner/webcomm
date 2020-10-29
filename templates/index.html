@@ -11,16 +11,13 @@
         {{ renderfield(form.formunderlyings, class = 'form-control') }}
         {{ renderfield(form.formdelicond, class = 'form-control') }}
         {{ renderfield(form.formgeodel, class = 'form-control') }}
-        {{ renderfield(form.envia, class = 'form-control') }}
       </form>
     </div>
     <div class="col col-md-3">
       <form>
-        <p>Código Platts</p>
-        <h3>{{ plattscode }}</h3>
+        {{ renderfield(form.formplattscode, class = 'form-control') }}
         {{ renderfield(form.formdivisas, class = 'form-control') }}
-         <p>Código Murex</p>
-        <h3>{{ murexcode }}</h3>
+        {{ renderfield(form.formmurexcode, class = 'form-control') }}
       </form>
     </div>
     <div class="col col-md-6">

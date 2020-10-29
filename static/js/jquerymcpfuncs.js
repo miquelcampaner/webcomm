@@ -54,11 +54,12 @@ function trincaPlatts() {
   idgeoplac = $('#formgeodel').val();
   fetch('/plattscode/' + idsubjacent + '/' +
                          iddelicond + '/'+
-                         idgeoplac + '/').then(function(response) {
+                         idgeoplac + '/' + [divisa]).then(function(response) {
     response.json().then(function(data) {
       for (let itemplatts of data.infoplatts) {
         plattscode = itemplatts.cashref
       }
+      $('#formplattscode').val(plattscode)
     });
   });
 };
@@ -76,6 +77,7 @@ function trincaMurex() {
       for (let itemmurex of data.infomurex) {
         murexcode = itemmurex.cashref
       }
+      $('#formmurexcode').val(murexcode)
     });
   });
 };

@@ -52,11 +52,15 @@ class ComentForm(FlaskForm):
                                    get_label='NameGeoPlacement',
                                    label='Zona de entrega',
                                    blank_text="--")
+
+    formplattscode = StringField(label='Código Platts',default='--')
+
     formdivisas = QuerySelectField(query_factory=choice_query_divisas,
                                   allow_blank=True,
                                   get_label='NameCurcy',
                                   label='Divisa de la operación',
                                   blank_text="--")
 
+    formmurexcode = StringField(label='Código Murex', default='--')
 
     envia = SubmitField('Hecho')
