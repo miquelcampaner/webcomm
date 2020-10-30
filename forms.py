@@ -31,6 +31,9 @@ def choice_query_divisas():
 
 
 class ComentForm(FlaskForm):
+
+    monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+
     formlevelone = QuerySelectField(query_factory=choice_query_fam,
                                   allow_blank=True,
                                   get_label='NameComCatLev1',
@@ -62,5 +65,13 @@ class ComentForm(FlaskForm):
                                   blank_text="--")
 
     formmurexcode = StringField(label='Código Murex', default='--')
+
+    formmesinici = SelectField('Mes inicio operación', choices=monthNames, default='--')
+
+    formmesfin = SelectField('Mes final operación', choices=monthNames, default='--')
+
+    formyearinici = StringField(label='Año', default='')
+
+    formyearfin = StringField(label='Año',default='')
 
     envia = SubmitField('Hecho')
