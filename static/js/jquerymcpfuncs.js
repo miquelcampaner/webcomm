@@ -71,11 +71,14 @@ function trincaPlatts() {
 };
 
 function trincaMurex() {
-  alert('entram')
   idsubjacent = $('#formunderlyings').val();
   iddelicond = $('#formdelicond').val();
   idgeoplac = $('#formgeodel').val();
   idccy = $('#formdivisas').val();
+  if (delivery == '0'){
+    iddelicond = '0'
+    idgeoplac='0'
+  };
   alert('/murexcode/' + idsubjacent + '/' +
                          iddelicond + '/'+
                          idgeoplac + '/'+

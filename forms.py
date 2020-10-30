@@ -31,14 +31,13 @@ def choice_query_divisas():
 
 
 class ComentForm(FlaskForm):
-
-    monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+    monthNames = ['--', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
     formlevelone = QuerySelectField(query_factory=choice_query_fam,
-                                  allow_blank=True,
-                                  get_label='NameComCatLev1',
-                                  label='Famila de productos',
-                                  blank_text="--")
+                                    allow_blank=True,
+                                    get_label='NameComCatLev1',
+                                    label='Famila de productos',
+                                    blank_text="--")
 
     formleveltwo = SelectField('Categoria del subyacente', choices=[])
 
@@ -51,27 +50,25 @@ class ComentForm(FlaskForm):
                                     blank_text="--")
 
     formgeodel = QuerySelectField(query_factory=choice_query_geodel,
-                                   allow_blank=True,
-                                   get_label='NameGeoPlacement',
-                                   label='Zona de entrega',
-                                   blank_text="--")
+                                  allow_blank=True,
+                                  get_label='NameGeoPlacement',
+                                  label='Zona de entrega',
+                                  blank_text="--")
 
-    formplattscode = StringField(label='Código Platts',default='--')
+    formplattscode = StringField(label='Código Platts', default='--')
 
     formdivisas = QuerySelectField(query_factory=choice_query_divisas,
-                                  allow_blank=True,
-                                  get_label='NameCurcy',
-                                  label='Divisa de la operación',
-                                  blank_text="--")
+                                   allow_blank=True,
+                                   get_label='NameCurcy',
+                                   label='Divisa de la operación',
+                                   blank_text="--")
 
     formmurexcode = StringField(label='Código Murex', default='--')
 
-    formmesinici = SelectField('Mes inicio operación', choices=monthNames, default='--')
-
-    formmesfin = SelectField('Mes final operación', choices=monthNames, default='--')
+    formmesinici = SelectField('Inicio', choices=monthNames)
 
     formyearinici = StringField(label='Año', default='')
 
-    formyearfin = StringField(label='Año',default='')
+    formtotalmesos = StringField(label='Meses', default='')
 
     envia = SubmitField('Hecho')
