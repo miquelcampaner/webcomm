@@ -23,6 +23,7 @@ $('#formleveltwo').change(function() {
 
 $('#formunderlyings').change(function() {
     trincaInfosub();
+
 });
 
 $('#formgeodel').change(function() {
@@ -38,4 +39,26 @@ $('#formgeodel').change(function() {
 
 $('#formdivisas').change(function() {
     trincaMurex();
+});
+
+$('#formmesinici').change(function() {
+    if($('#formyearinici').val() != ''
+        && $('#formtotalmesos').val() != '' ){
+    calculaDataInici();
+    }
+});
+
+$('#formyearinici').change(function() {
+    if($('#formmesinici').val() != ''
+    && $('#formtotalmesos').val() != '' ){
+    calculaDataInici();
+    }
+});
+
+$('#formtotalmesos').change(function() {
+    if($('#formmesinici').val() != ''
+    && $('#formyearinici').val() != ''
+    && $('#formtotalmesos').val() != '' ){
+    calculaDataInici();
+    }
 });

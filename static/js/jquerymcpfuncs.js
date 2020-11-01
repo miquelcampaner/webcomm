@@ -34,6 +34,8 @@ function trincaInfosub() {
       for (let itemsubjacent of data.infosub) {
         delivery = itemsubjacent.DelivCond;
         geo = itemsubjacent.GeoPlacement;
+        divisa = itemsubjacent.IdCurcy;
+        nivell = itemsubjacent.SelObs;
         if(delivery == '0'){
           $('#formdelicond').prop('disabled',true);
           $('#formgeodel').prop('disabled',true);
@@ -42,8 +44,6 @@ function trincaInfosub() {
           $('#formdelicond').prop('disabled',false);
           $('#formgeodel').prop('disabled',false);
         };
-        divisa = itemsubjacent.IdCurcy;
-        nivell = itemsubjacent.SelObs;
       };
     });
   });
@@ -57,7 +57,7 @@ function trincaPlatts() {
     iddelicond = '0'
     idgeoplac='0'
   };
-  fetch('/plattscode/' + idsubjacent + '/' +
+ fetch('/plattscode/' + idsubjacent + '/' +
                          iddelicond + '/'+
                          idgeoplac + '/' + [divisa]).then(function(response) {
     response.json().then(function(data) {
@@ -79,10 +79,6 @@ function trincaMurex() {
     iddelicond = '0'
     idgeoplac='0'
   };
-  alert('/murexcode/' + idsubjacent + '/' +
-                         iddelicond + '/'+
-                         idgeoplac + '/'+
-                         idccy)
   fetch('/murexcode/' + idsubjacent + '/' +
                          iddelicond + '/'+
                          idgeoplac + '/'+
@@ -95,4 +91,15 @@ function trincaMurex() {
       $('#formmurexcode').prop('disabled',true);
     });
   });
+};
+
+function calculaDataInici(){
+startMonth = $('#formmesinici').val();
+startYear = $('#formyearinici').val();
+starday = '1';
+//dataInici = Date(startYear,startMonth,starday)
+dataInici = new Date(startYear+'-'+ startMonth)
+dataFin = new Date(dataInici).add(3).month();
+alert(dataInici);
+alert(dataFin);
 };
