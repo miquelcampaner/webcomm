@@ -94,12 +94,12 @@ function trincaMurex() {
 };
 
 function calculaDataInici(){
-startMonth = $('#formmesinici').val();
-startYear = $('#formyearinici').val();
-starday = '1';
-//dataInici = Date(startYear,startMonth,starday)
-dataInici = new Date(startYear+'-'+ startMonth)
-dataFin = new Date(dataInici).add(3).month();
-alert(dataInici);
-alert(dataFin);
-};
+    startMonth = $('#formmesinici').val();
+    startYear = $('#formyearinici').val();
+    totalMonths = $('#formtotalmesos').val();
+    starday = '1';
+    dataInici = new Date(startYear+'-'+ parseInt(startMonth));
+    dataFin = new Date(dataInici.getMonth()+parseInt(totalMonths),0);
+    alert(parseInt(dataInici));
+    alert(parseInt(dataFin));
+    };
