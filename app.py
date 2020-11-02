@@ -4,8 +4,8 @@ from flask_wtf.csrf import CSRFProtect
 from config import DevelConfig
 from models import db
 import forms
-
-
+from mcpfunctions import calcula_label, calcula_dates
+from datetime import datetime
 app = Flask(__name__)
 app.config.from_object(DevelConfig)
 csrf = CSRFProtect()
@@ -66,12 +66,12 @@ def get_info_sub(idsubjacent):
 
 
 @app.route('/plattscode/<idsubjacent>/<delicond>/<geoplac>/<divisa>', methods=['GET', 'POST'])
-def get_platts_code(idsubjacent, delicond, geoplac,divisa):
+def get_platts_code(idsubjacent, delicond, geoplac, divisa):
     queryplatts = 'select cashref ' + \
-                ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
-                ' IdDeliveryCond =' + str(delicond) + ' and' + \
-                ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
-                ' IdCurcy = ' + str(divisa)
+                  ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
+                  ' IdDeliveryCond =' + str(delicond) + ' and' + \
+                  ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
+                  ' IdCurcy = ' + str(divisa)
     donequeryplatts = db.session.execute(queryplatts)
     donequeryplattsyarray = []
     for record in donequeryplatts:
@@ -83,18 +83,38 @@ def get_platts_code(idsubjacent, delicond, geoplac,divisa):
 @app.route('/murexcode/<idsubjacent>/<delicond>/<geoplac>/<divisa_op>', methods=['GET', 'POST'])
 def get_murex_code(idsubjacent, delicond, geoplac, divisa_op):
     querymurex = 'select IdMurex ' + \
-                ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
-                ' IdDeliveryCond =' + str(delicond) + ' and' + \
-                ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
-                ' IdCurcy = ' + str(divisa_op)
+                 ' from mxplattscodes where IdUnder =' + str(idsubjacent) + ' and' + \
+                 ' IdDeliveryCond =' + str(delicond) + ' and' + \
+                 ' IdGeoPlacement = ' + str(geoplac) + ' and' + \
+                 ' IdCurcy = ' + str(divisa_op)
 
     donequerymurex = db.session.execute(querymurex)
     donequerymurexyarray = []
     for record in donequerymurex:
         donequeryobject = {'mxref': record[0]}
         donequerymurexyarray.append(donequeryobject)
-    print(donequerymurexyarray)
     return jsonify({'infomurex': donequerymurexyarray})
+
+
+@app.route('/labeldates/<mesinici>/<anyinici>/<mesos>', methods=['GET', 'POST'])
+def get_label_calendar(mesinici, anyinici, mesos):
+    return jsonify({'labelcaldendar': calcula_label(stringmes=mesinici,
+                                                    stringany=anyinici,
+                                                    nummesos=mesos)})
+
+
+@app.route('/rangdates/<mesinici>/<anyinici>/<mesos>', methods=['GET', 'POST'])
+def matriumesos(mesinici, anyinici, mesos):
+    arraydates = calcula_dates(stringmes=mesinici,
+                               stringany=anyinici,
+                               nummesos=mesos)
+    donearraydates =[]
+    for finmes in arraydates:
+        stringdate = finmes.strftime('%b-%y').upper()
+        finmesobject = {'finalmes': stringdate}
+        donearraydates.append(finmesobject)
+
+    return jsonify({'infomats': donearraydates})
 
 
 if __name__ == "__main__":
@@ -102,5 +122,5 @@ if __name__ == "__main__":
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run(port=4325,
+    app.run(port=4321,
             debug=True, )

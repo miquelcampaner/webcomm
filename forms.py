@@ -83,4 +83,5 @@ class ComentForm(FlaskForm):
 
     formtotalmesos = StringField(label='Meses', default='')
 
+    formcalendar = StringField(label='Per�odo operaci�n', default='--')
     envia = SubmitField('Hecho')

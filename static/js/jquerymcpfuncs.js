@@ -97,9 +97,14 @@ function calculaDataInici(){
     startMonth = $('#formmesinici').val();
     startYear = $('#formyearinici').val();
     totalMonths = $('#formtotalmesos').val();
-    starday = '1';
-    dataInici = new Date(startYear+'-'+ parseInt(startMonth));
-    dataFin = new Date(dataInici.getMonth()+parseInt(totalMonths),0);
-    alert(parseInt(dataInici));
-    alert(parseInt(dataFin));
+    fetch('/labeldates/' + startMonth + '/' +
+                         startYear + '/'+
+                         totalMonths).then(function(response) {
+    response.json().then(function(data) {
+      for (let itemcalendar of data.labelcaldendar) {
+        murexcode = itemcalendar.labelcaldendar
+      }
+      $('#formcalendar').val(murexcode);
+      $('#formcalendar').prop('disabled',true);
+    });
     };
